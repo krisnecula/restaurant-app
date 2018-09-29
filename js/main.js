@@ -160,6 +160,7 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.tabIndex = '3';
   li.append(more)
 
   return li
@@ -179,3 +180,13 @@ google-maps
     self.markers.push(marker);
   });
 }
+
+/*
+ * Assign tab index to elements.
+ */
+
+var h1 = document.getElementById("h1");
+var h2 = document.getElementById("h2");
+
+h1.tabIndex = 1;
+h2.tabIndex = 2;
