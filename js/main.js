@@ -182,11 +182,9 @@ google-maps
 }
 
 /*
- * Assign tab index to elements.
+ * Assign tab index to elements and ids.
  */
 
-var h1 = document.getElementById("h1");
-var h2 = document.getElementById("h2");
-
-h1.tabIndex = 1;
-h2.tabIndex = 2;
+document.getElementsByClassName("h1").tabIndex = 1;
+document.getElementById("#neighborhoods-select").tabIndex = 2;
+document.getElementById("#cuisines-select").tabIndex = 2;
