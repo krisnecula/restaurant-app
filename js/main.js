@@ -181,10 +181,16 @@ google-maps
   });
 }
 
-/*
+/**
  * Assign tab index to elements and ids.
  */
 
 document.getElementsByClassName("h1").tabIndex = 1;
 document.getElementById("#neighborhoods-select").tabIndex = 2;
 document.getElementById("#cuisines-select").tabIndex = 2;
+
+/**
+ * Add a service worker
+ * github reference: https://gist.github.com/ngokevin/7eb03d90987c0ed03b873530c3b4c53c
+ */
+navigator.serviceWorker.register('serviceworker.js'); // register the service worker
