@@ -22,4 +22,5 @@ Note: using Google API key.
 
 * [Matthew Cranford's Tutorial](https://matthewcranford.com/category/blog-posts/walkthrough/restaurant-reviews-app/)
 * [Kevin Ngo's Simple Service Worker Reference](http://supermedium.strikingly.com/blog/service-workers)
+* [Dan Fabulich's How to Fix the Refresh Button When Using Service Workers](https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68)
 * Helpful Udacity program and team

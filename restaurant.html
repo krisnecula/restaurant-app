@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -21,10 +21,11 @@
   <header>
     <!-- Beginning nav -->
     <nav>
-      <h1><a aria-label="heading" tabindex="1" href="/">Restaurant Reviews</a></h1>
+    <!-- Accessibility updates: added roles and improved labels. See here: https://stackoverflow.com/questions/10403138/what-is-the-purpose-of-the-role-attribute-in-html -->
+      <h1><a role="heading" aria-label="Restaurant Reviews" tabindex="-1" href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
+    <ul role="navigation" aria-label="Breadcrumb" id="breadcrumb" >
       <li><a href="/">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
@@ -33,31 +34,33 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent">
+  <main role="main" aria-label="Main content" id="maincontent">
     <!-- Beginning map -->
+    <!-- Accessibility updates: found suitable role and label for map app. See: https://stackoverflow.com/questions/44712753/what-is-a-suitable-wai-aria-role-attribute-for-a-map-element -->
     <section id="map-container">
-      <div id="map"></div>
+      <div role="application" aria-label="Map with restaurants" tabindex="0" id="map"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
-    <section aria-label="restaurant information" tabindex="2" id="restaurant-container">
-      <h1 aria-label="restaurant name" tabindex="3" id="restaurant-name"></h1>
-      <img id="restaurant-img">
-      <p aria-label="restaurant cuisine" tabindex="3" id="restaurant-cuisine"></p>
-      <p aria-label="restaurant address" tabindex="4" id="restaurant-address"></p>
-      <table aria-label="restaurant hours" tabindex="5" id="restaurant-hours"></table>
+    <!-- Accessibility updates: using tabindex equal to or less than zero. See: http://adrianroselli.com/2014/11/dont-use-tabindex-greater-than-0.html -->
+    <section aria-label="Restaurant information" id="restaurant-container">
+      <h1 aria-label="Restaurant name" tabindex="-2" id="restaurant-name"></h1>
+      <img role="img" aria-label="Restaurant image" tabindex="-2" id="restaurant-img">
+      <p aria-label="Restaurant cuisine" tabindex="-3" id="restaurant-cuisine"></p>
+      <p aria-label="Restaurant address" tabindex="-4" id="restaurant-address"></p>
+      <table aria-label="Restaurant hours" tabindex="-5" id="restaurant-hours"></table>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
-      <ul aria-label="Restaurant reviews" tabindex="6" id="reviews-list"></ul>
+      <ul aria-label="Restaurant reviews" tabindex="-6" id="reviews-list"></ul>
     </section>
     <!-- End reviews -->
   </main>
   <!-- End main -->
 
   <!-- Beginning footer -->
-  <footer id="footer">
+  <footer role="contentinfo" aria-label="Legal disclaimer" tabindex="-7" id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->

@@ -181,16 +181,39 @@ google-maps
   });
 }
 
-/**
- * Assign tab index to elements and ids.
- */
-
-document.getElementsByClassName("h1").tabIndex = 1;
-document.getElementById("#neighborhoods-select").tabIndex = 2;
-document.getElementById("#cuisines-select").tabIndex = 2;
-
-/**
- * Add a service worker
+/*
+ * Add a Service Worker.
  * github reference: https://gist.github.com/ngokevin/7eb03d90987c0ed03b873530c3b4c53c
+ * fixing refresh: https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68
  */
 navigator.serviceWorker.register('serviceworker.js'); // register the service worker
+
+// Listen for a .waiting ServiceWorker
+
+function listenForWaitingServiceWorker(reg, callback) {
+  function awaitStateChange() {
+    reg.installing.addEventListener('statechange', function() {
+      if (this.state === 'installed') callback(reg);
+    });
+  }
+  if (!reg) return;
+  if (reg.waiting) return callback(reg);
+  if (reg.installing) awaitStateChange();
+  reg.addEventListener('updatefound', awaitStateChange);
+}
+
+// Step 3: reload once the new ServiceWorker starts activating
+var refreshing;
+navigator.serviceWorker.addEventListener('controllerchange',
+  function() {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  }
+);
+function promptUserToRefresh(reg) {
+  if (window.confirm("New version available! OK to refresh?")) {
+    reg.waiting.postMessage('skipWaiting');
+  }
+}
+listenForWaitingServiceWorker(reg, promptUserToRefresh);

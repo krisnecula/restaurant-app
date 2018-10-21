@@ -79,3 +79,23 @@ function networkElseCache (event) {
       return response;
     }) || response;
   });
+
+// Fixing the refresh button for the ServiceWorker:
+// Step 1: listen for a posted message.
+addEventListener('message', messageEvent => {
+  if (messageEvent.data === 'skipWaiting') return skipWaiting();
+});
+
+// Step 2: listen for a .waiting ServiceWorker
+
+function listenForWaitingServiceWorker(reg, callback) {
+  function awaitStateChange() {
+    reg.installing.addEventListener('statechange', function() {
+      if (this.state === 'installed') callback(reg);
+    });
+  }
+  if (!reg) return;
+  if (reg.waiting) return callback(reg);
+  if (reg.installing) awaitStateChange();
+  reg.addEventListener('updatefound', awaitStateChange);
+}

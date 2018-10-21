@@ -16,26 +16,27 @@
 
 <body>
   <header>
-    <nav>
-      <h1><a aria-label="Home" tabindex="1" href="/">Restaurant Reviews</a></h1>
+    <!-- Accessibility updates: added roles, tabindex and improved labels. See here: https://stackoverflow.com/questions/10403138/what-is-the-purpose-of-the-role-attribute-in-html -->
+    <nav role="navigation" aria-label="Navigation">
+      <h1><a role="heading" aria-label="Home" tabindex="0" href="/">Restaurant Reviews</a></h1>
     </nav>
   </header>
 
-  <main id="maincontent">
+  <main role="main" aria-label="Main content" id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div role="application" aria-label="Map with restaurants" id="map"></div>
     </section>
     <section>
-      <div class="filter-options">
+      <div role="tablist" tabindex="-1" aria-label="Filter options" class="filter-options">
         <h2>Filter Results</h2>
-        <select aria-label="Select neighborhood" role="tablist" tabindex="2" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select aria-label="Select neighborhood" role="tablist" tabindex="-2" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select aria-label="Select cuisine" role="tablist" tabindex="2" id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select aria-label="Select cuisine" role="tablist" tabindex="-2" id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
-      <ul id="restaurants-list"></ul>
+      <ul aria-label="Restaurant list" tabindex="-3" id="restaurants-list"></ul>
     </section>
   </main>
 
@@ -46,7 +47,7 @@
   integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
   crossorigin=""></script>
 
-  <footer id="footer">
+  <footer role="contentinfo" aria-label="Legal disclaimer" tabindex="-4" id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 
