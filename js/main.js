@@ -1,9 +1,17 @@
+/* Register service worker */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+  .register('/sw.js')
+  .catch(function(err) {
+    console.error(err);
+  });
+}
+
 let restaurants,
   neighborhoods,
   cuisines
 var map
 var markers = []
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -142,10 +150,11 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt = `Image for ${restaurant.name}`; // added alt for screen readers which will retrieve information about each restaurant for each image displayed
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h2'); // changed to h2 - restaurant name semantically less important than page title
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -172,7 +181,6 @@ createRestaurantHTML = (restaurant) => {
 addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
-google-maps
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
     google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url
@@ -180,40 +188,3 @@ google-maps
     self.markers.push(marker);
   });
 }
-
-/*
- * Add a Service Worker.
- * github reference: https://gist.github.com/ngokevin/7eb03d90987c0ed03b873530c3b4c53c
- * fixing refresh: https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68
- */
-navigator.serviceWorker.register('serviceworker.js'); // register the service worker
-
-// Listen for a .waiting ServiceWorker
-
-function listenForWaitingServiceWorker(reg, callback) {
-  function awaitStateChange() {
-    reg.installing.addEventListener('statechange', function() {
-      if (this.state === 'installed') callback(reg);
-    });
-  }
-  if (!reg) return;
-  if (reg.waiting) return callback(reg);
-  if (reg.installing) awaitStateChange();
-  reg.addEventListener('updatefound', awaitStateChange);
-}
-
-// Step 3: reload once the new ServiceWorker starts activating
-var refreshing;
-navigator.serviceWorker.addEventListener('controllerchange',
-  function() {
-    if (refreshing) return;
-    refreshing = true;
-    window.location.reload();
-  }
-);
-function promptUserToRefresh(reg) {
-  if (window.confirm("New version available! OK to refresh?")) {
-    reg.waiting.postMessage('skipWaiting');
-  }
-}
-listenForWaitingServiceWorker(reg, promptUserToRefresh);
