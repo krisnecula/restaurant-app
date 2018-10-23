@@ -302,12 +302,21 @@ nav h1 a {
 		}
 }
 
-@media only screen and (max-width: 420px) {
-#restaurants-list li h1 {
-  font-size: 12pt;
-}
+@media only screen and (max-width: 520px) {
+	.main-content #map-container {
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    padding: 140px 0 0;
+    order: 0;
+  }
 
-@media only screen and (max-width: 420px) {
-#restaurants-list p {
-  font-size: 10pt;
+  #restaurant-container {
+    order: 1;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
